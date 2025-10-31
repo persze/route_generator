@@ -1,0 +1,54 @@
+
+Szamla {
+	id integer pk increments unique
+	Datum integer
+	Szamla_szam integer
+	Tankolt_mennyiseg integer
+	Osszeg integer
+	Benzinkut_ID integer >* Cimlista.id
+	Gepjarmu_ID integer > Gepjarmu.Rendszam
+	Kilometer_szamlalo_allasa integer
+	Uzemanyag_tipus integer
+}
+
+Gepjarmu {
+	id integer increments unique
+	Rendszam integer pk
+	Marka integer
+	Tipus integer
+	Kivitel integer
+	Tomeg integer
+	Tank_meret integer
+	Uzemanyag_tipus integer
+}
+
+Cimlista {
+	id integer pk increments unique
+	Orszag integer
+	Megye integer
+	Varos integer
+	Utca integer
+	Hazszam integer
+	GPS_Lat integer
+	GPS_Lon integer
+	Funkcio integer
+	Egyeb integer
+	hash_code integer pk
+}
+
+Kiszamitott_utvonalak {
+	Telephely integer
+	Celallomas_ID integer > Cimlista.id
+	Kilometer integer
+	Vezetesi_ido integer
+	GPS_Lat integer
+	GPS_Lon integer
+	Szamla_ID integer > Szamla.id
+}
+
+Sofor {
+	id integer pk increments unique
+	Vezeteknev integer
+	Keresztnev integer
+}
+
