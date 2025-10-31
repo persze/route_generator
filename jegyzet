@@ -1,0 +1,78 @@
+Feladat lista
+
+Projekt leiras:
+
+Ennek a programnak a celja, hogy megkonnyitse az utolagos uzemanyag elszamolast. Minden tankolasi szamlahoz tartozik teljesites. Ez a teljesites maga az a nyilvantartas amiben
+a gepjarmuvezeto regisztral minden megtett utat. Ez eltalaban:
+
+     datum - rendszam -    kiindulasi allomas         -              celallomas          - megtett kilometer - kilometer szamlalo allasa
+04.10.2025 - PK-059IE - SK,Nitra,Hlavna ulica 2.             SK, Levice, Stefanikova 3.         55                 150000
+04.10.2025 - PK-059IE - SK,Levice, Stefanikova 3.            SK, Nitra, Hlavna ulica 2.         55                 150055
+04.10.2025 - PK-059IE - SK,Nitra, Hlavna ulica 2.            SK, Sahy, Kollarova 15/6           100                150155
+04.10.2025 - PK-059IE - SK,Sahy, Kollarova 15/6              SK, Nitra, Hlavna ulica 2.         100                150255
+05.10.2025 - PK-059IE - SK,Nitra, Hlavna ulica 2.            SK, Vrable, Hlavna ulica 1.        25                 150280
+05.10.2025 - PK-059IE - SK, Vrable, Hlavna ulica 1.          SK,Nitra, Hlavna ulica 2.          25                 150305
+
+
+A fenti peldan lehet latni, hogy jelen esetben a rogzitett telephelyunk az "SK,Nitra, Hlavna ulica 2." ez szerepel a cim adatbazisban GPS koorindatakkal
+egyutt megjegyzesbe pedit "telephely" van rogzitve, mellette a megnevezes oszlop amiben "Nitra telephely" van rogzitve, mert ennek alapjan 
+lehet majd a legordulo listabol kivalasztani.
+A 05.10.2025 kezdo datumot a felhasznalo szabadon valasztja ki, nincs megkotes, lehetoseg van megadni a programnak azt, hogy mikor fejezze be a generalast.
+Datumra vagy kilometerre, vagy mindkettore. Tehat adott datumig a tankolt mennyiseg es az auto atlafogyasztasanak megfeleloen. 
+Az auto fogyasztasat manualisan kell megadni, hiszen ez valtozhat.
+
+Az utvonalaknak a generalasi metodusa veletlenszeruen tortenik. Lehetoseg van befolyasolni, szabalyozni. Az alabbi szabalylehetosegek lesznek.
+
+Telephelytol maximalis tavolsag: 
+
+Itt lehet meghatarozni, hogy a telephelytol mennyi a maximalis tavolsag amire elmehet az auto, vissza ut nincs szamolva! 
+Tehat ha 60 km - akkor ez determinalja az egy utvonal maximalis hosszat. 
+
+Egy nap megteheto maximalis kilometer: 
+Fontos, hogy limitaljuk, hiszen ne egy napra szamolja el a tankolast. Itt mondjuk 100-150-200 kilometer lehet realis maximum ertek.
+
+Varosok kivalasztasa:
+Amelyik varost kivalasztja a felhasznalo ugy, csak olyan cimeket fog kapni amik a kivalasztott varosaban vannak.
+
+Orszag kivalasztasa:
+Itt lehetoseg van Magyarorszag es Szlovakia kivalasztasara.
+
+Fontos leszogezni, hogy a kezdeti datumot mindig a szamla datuma hatarozza meg. Hiszen a cel az, hogy az uzemanyag szamlara irjunk teljesitest. Ezert a kezdodatum mindig a
+szamlan szereplo tankolasi datum lesz, es az elso ut a telephelytol a benzinkutra es vissza is vezet.
+
+A generalas elott megadhato a vegdatum is. Itt celszeru a kovetkezo szamlanak a datumat beirni.
+
+
+OFF:
+Mindig maradjon az autoban uzemanyag. 1,5 L azaz 25 km -t megteheto tavolsag amivel a kovetkezo benzinkutig el lehet menni, es ujrakezdeni az elszamolast.
+
+A program irja ki a kovetketzo maximalis tankolhato mennyiseget. 
+A program irja ki az atlagfogyasztast. Ezt ne a felhasznalo altal bevitt adatot irja vissza, hanem szamolja ki ellenorzeskeppen! 
+Es felhasznalo alal megadott atlagfogyasztas, es a tankolt uzemanyag es tavolsag alapjan kijott fogyasztas. A ketto kozott minimalis elteres persze lehet. +-0.4L/100km
+Szoval igyekezni kell ugy generalni az utvonalakat, hogy ebbe a turesbe beleeessen. 
+
+Tehat a program szamlakhoz general utvonalat. Jelen esetben a konyvelo egyenkent viszi fel a szamlakat es hozza tartozo utvonakat general. Majd ezek az utvonalak,
+feltoltesre kerulnek menetlevel tablaba , ami a kesobbiekben konnyiti a lekerdezest. Ha van hiba, mondjuk duplikalt utvonal...Tehat fontos, hogy NE LEGYEN ATFEDES! 
+HOGY OLDJAM MEG HOGY NE LEGYEN ATFEDES? :D  
+**az emberek nem akkrok tankolnak amikor kifogy a tank. hanem ugy barmikor, mondjuk amikor kedvezo aron van.
+**vagy mindig tankolhatok ha felig lesz a tank. , tehat a tankolas datuma es liter mennyisege nem determinalja ,hogy mennyi benzin van  tankban. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+1. Megtervezni az adatbazist
