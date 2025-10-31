@@ -1,0 +1,598 @@
+mysql> SHOW TABLES;
++---------------------------+
+| Tables_in_vehicle_mileage |
++---------------------------+
+| Benzinkut                 |
+| Cim_adatbazis             |
+| Generalt_utvonal          |
+| Jarmu                     |
+| Szamla                    |
+| SzamlaView                |
+| Telephely                 |
++---------------------------+
+7 rows in set (0.00 sec)
+
+mysql> 
+
+
+
+Eszembe jutott valami plusz.
+
+PROGRAM LEIRASA
+
+
+Tehat az elso lepes a szamlanak a paramtereinek a megadasa! 
+
+Tobb szamlanak a bevitele:
+
+1 rendszamhoz tobb szamla is felviheto! 
+
+Tehat tobb lepesben kell bevinni az adatokat! 
+
+
+1. GEPJARMU KIVALASZTASA
+	+meghatarozza a rendszamot(PRIMARY KEY), es a maximalisan tankolhato mennyiseget.
+
+2. HANY SZAMLAT AKARSZ ELSZAMOLNI?
+	-SZAMLA MENNYISEGENEK MEGADASA
+	
+3. SZAMLAK FELVITELE:
+	SZAMLA SZAMA: kotelezo
+	BENZINKUT CIME: kotelezo - listabol kivalasztas
+	TANKOLAS DATUMA: kotelezo - olyan naptar segitsegevel valaszthato
+	AUTO KM SZAMLALO ALLASA: nem kotelezo
+	TANKOLAS OSSZEGE: kotelezo
+	TANKOLAS MENNYISEGE: L
+	UZEMANYAG TIPUSA: BENZIN, NAFTA, ELEKTRO
+	NORMA FOGYASZTAS: LITER/100 KM 
+
+OK GOMB UTAN EGY OSSZEGZES: Osszeadja a litereket, es az ebbol kalkulalja a megteheto kilometer mennyiseget. Ellenorzeskent kiirja:
+
+2025.10.04 - 49 L tankolas - elszamolhato: 600 km 
+2025.10.10 - 60 L tankolas - elszamolhato: 800 km
+2025.10.18 - 21 L tankolas - elszamolhato: 300 km
+
+osszesen : 2025.10.04 - 2025.10.18 - 130 L - 1700 km - 14 nap
+
+MEGFELEL ?
+
+GENERALAS:
+ALLANDO TELEPHELY KIVALASZTASA (innen indul es ide ter vissza a nap vegen):
+CIMEK: Nitrianksy, Banskobystricky, Travsky, Bratislavsky, Trenciansky,Zilinksy, Presovsky, Kosicky
+EU KULFOLD: Magyar, Lengyel, Osztrak, Cseh
+
+EGYEDI CIMEK FELVITELE, ROGZITETT UTAZASOK?
+
+DATUM - KIINDULO ALLOMAS - CELALLOMAS - MEGTETT KILOMETER
+
+
+a benzinkut cime, azert fontos, hogy azon a napon amikor a tankolas tortent, akkor azt a cimet hasznalja. Aznapra ne is generaljon mast, csak a tankolast,
+kiveve ha van kulfoldi ut, tehat egyedi cim. 
+
+
+
+
+SZAMLA SZAMA: kotelezo
+TANKOLT MENNYISEG: kotelezo
+JARMU RENDSZAMA: kotelezo - listabol kivalasztas - csak azok jelenjenek meg a listaban, ami a tankolt mennyisegnek megfelelo. Tehat amelyik rendszamu autoba nem fer bele a tankolt mennyiseg, azt ne fogadja el. Jelezze ki, hogy tankmerete nem megfelelo.
+
+BENZINKUT CIME: kotelezo - listabol kivalasztas
+
+TANKOLAS OSSZEGE: kotelezo
+
+TANKOLAS DATUMA: kotelezo - olyan naptar segitsegevel valaszthato
+
+AUTO KM SZAMLALO ALLASA: nem kotelezo
+
+
+Aztan a generalas pontositasa.
+
+Az utvonalakat ugy generalja, hogy az autoban levo kilometer szamlalo adatai megegyezzenek. Tehat 
+
+
+EZ LESZ A GENERALT KIMENET:
++VELETLENSZERU UTVONALAK
++
+
+
+
+ID(PRIMARY KEY)  |Rendszam |	Datum         | Kiindulo allomas      | Celallomas            |      Megtett kilometer     | Kilometer szamlalo adata |      Sofor
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+   0000000001    |NR-606KX |   10.10.2025     | NITRA|Bazovskeho 4.   | VRABLE|Hlavna ulica 1.|           25               |  156935  |    156960     |  Stefan Boldis
+   0000000002    |NR-606KX |   10.10.2025     | VRABLE|Hlavna ulica 1.| NITRA|Bazovskeho 4.   |           25               |  156960  |    156985     |  Stefan Boldis
+
+
+
+
+
+
+
+
+Tehat fel lehessen vinni soforoket is az adatbazisba. 
+
+
+TABLA	
+JARMU     NYILVANTARTAS
+	RENDSZAM
+	VIN
+	MARKA
+	TIPUS
+	TANKMERET
+	KIVITEL
+	TOMEG
+SOFOR 	  NYILVANTARTAS
+	VEZETEKNEV
+	KERESZTNEV
+	
+TELEPHELY NYILVANTARTAS
+	TELEPHELY_ID
+	MEGNEVEZES
+	CIME: CIM_ID
+BENZINKUT NYILVANTARTAS
+	NEVE
+	CIME: CIM_ID
+
+
+CIMEK	  NYILVANTARTAS
+	CIM_ID(PRIMARY KEY)
+	ORSZAG
+	JARAS
+	VAROS
+	UTCA
+	HAZSZAM V. HSZ.
+	PSC
+	TIPUS (TELEPHELY, BENZINKUT)
+	GPS COORDINATA
+	
+
+TAVOLSAG NYILVANTARTAS	
+	CIM_1(TELEPHELY_ID)
+	CIM_2
+	TAVOLSAG
+	
+KILOMETER ELSZAMOLAS NY.
+
+
+
+
+"""""""""""""VALASZTHATO OPCIOK"""""""""""""""""""""
+
+
+
+ORSZAG KIVALASZTASA : MAGYARORSZAG, SZLOVAKIA
+KULFOLDI UTAK  SZAMA:
+KULFOLDI UT DATUM:
+KULFOLDI ORSZAG: 
+
+
+MANUALIS ADATBEVIVTEL:
+
+DATUM:
+KIINDULO ALLOMAS:
+CELALLOMAS:
+RENDSZAM:
+MEGTETT KILOMETER:
+SZAMLA TARTOZIK?
+TANKOLAS DATUMA: 
+
+
+===============================================================================================
+
+
+
+
+
+
+
+
+
+
+
+
+Szamla {
+	id integer pk increments unique
+	Datum integer
+	Szamla_szam integer
+	Tankolt_mennyiseg integer
+	Osszeg integer
+	Benzinkut_ID integer > Cimlista.Funkcio
+	Gepjarmu_ID integer > Gepjarmu.Rendszam
+	Kilometer_szamlalo_allasa integer
+	Uzemanyag_tipus integer
+}
+
+Gepjarmu {
+	id integer increments unique
+	Rendszam integer pk
+	Marka integer
+	Tipus integer
+	Kivitel integer
+	Tomeg integer
+	Tank_meret integer
+	Uzemanyag_tipus integer
+}
+
+Cimlista {
+	id integer pk increments unique
+	Orszag integer
+	Megye integer
+	Varos integer
+	Utca integer
+	Hazszam integer
+	GPS_Lat integer
+	GPS_Lon integer
+	Funkcio integer
+	Egyeb integer
+	hash_code integer pk
+}
+
+Kiszamitott_utvonalak {
+	Telephely integer
+	Celallomas_ID integer > Cimlista.id
+	Kilometer integer
+	Vezetesi_ido integer
+	GPS_Lat integer
+	GPS_Lon integer
+	Szamla_ID integer > Szamla.id
+}
+
+Sofor {
+	id integer pk increments unique
+	Vezeteknev integer
+	Keresztnev integer
+}
+
+
+
+
+
+CREATE TABLE gepjarmu (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    rendszam VARCHAR(15) UNIQUE NOT NULL,
+    marka VARCHAR(50),
+    tipus VARCHAR(50),
+    kivitel VARCHAR(50),
+    tomeg INT,
+    uzemanyag_tipus VARCHAR(30),
+    tank_meret DECIMAL(6,2),
+    normativ_fogyasztas DECIMAL(6,2)
+);
+
+CREATE TABLE sofor (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    vezeteknev VARCHAR(50),
+    keresztnev VARCHAR(50)
+);
+
+CREATE TABLE cimlista (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    orszag VARCHAR(50),
+    megye VARCHAR(50),
+    varos VARCHAR(50),
+    utca VARCHAR(100),
+    hazszam VARCHAR(10),
+    gps_lat DECIMAL(10,6),
+    gps_lon DECIMAL(10,6),
+    funkcio VARCHAR(50),
+    egyeb TEXT,
+    hash_code CHAR(64) UNIQUE
+);
+
+CREATE TABLE szamla (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    datum DATE,
+    szamla_szam VARCHAR(50),
+    tankolt_mennyiseg DECIMAL(8,2),
+    osszeg DECIMAL(10,2),
+    benzinkut_id INT,
+    gepjarmu_id INT,
+    kilometer_szamlalo_allasa INT,
+    FOREIGN KEY (benzinkut_id) REFERENCES cimlista(id),
+    FOREIGN KEY (gepjarmu_id) REFERENCES gepjarmu(id)
+);
+
+CREATE TABLE kiszamitott_utvonalak (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    telephely_id INT,
+    cel_allomas_id INT,
+    kilometer DECIMAL(8,2),
+    vezetesi_ido TIME,
+    gps_lat DECIMAL(10,6),
+    gps_lon DECIMAL(10,6),
+    szamla_id INT,
+    FOREIGN KEY (telephely_id) REFERENCES cimlista(id),
+    FOREIGN KEY (cel_allomas_id) REFERENCES cimlista(id),
+    FOREIGN KEY (szamla_id) REFERENCES szamla(id)
+);
+
+CREATE TABLE generalt_utvonalak (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    rendszam VARCHAR(15),
+    szamla_id INT,
+    datum DATE,
+    cim_id INT,
+    megtett_km DECIMAL(8,2),
+    kilometer_szamlalo INT,
+    utazas_celja VARCHAR(100),
+    sofor_id INT,
+    FOREIGN KEY (rendszam) REFERENCES gepjarmu(rendszam),
+    FOREIGN KEY (szamla_id) REFERENCES szamla(id),
+    FOREIGN KEY (cim_id) REFERENCES cimlista(id),
+    FOREIGN KEY (sofor_id) REFERENCES sofor(id)
+);
+
+
+
+PHP oldalon eloszor felvisszuk a szamla adatait. Miutan rogzitettuk a tovabbiakban a szamla szama alapjan hivatkozunk ra.
+Ekkor megnyomjuk a rogzit gombot es tovabb lepunk egy masik oldalra. A szamla felvitelnel csak az ismert adatokat visszuk fel.
+Datum, szamla_szam, tankolt_mennyiseg,osszeg,cim_benzinkut,uzemanyag_tipus, gepjarmu_id.
+Itt fotnos egy ellenorzes, mert a tankolt mennyiseg nem lehet tobb mint a gepjarmu tankmerete. Valamint a gepjarmu adatoknal van rogzitve a gepjarmu fogyasztasa is.
+
+
+Itt manualisan kell megadni a gepjarmu atlagfogyasztasat ami alapjan lehet majd kiszamolni az elszamolhato kilometer mennyiseget.
+
+
+Ha kivalasztjuk a gepjarmuvet, akkor meg kell adni a telephelyet, ami a kiindulo allomas lesz minden esetben. Ez azt jelenti, hogy az auto nap elejen a telephelyrol indul es a nap vegen a telephelyre erkezik meg. Minden cimgeneralas igy tortenik. Egyik az oda ut, masik pedig a vissza ut. Miutan kivalasztottuk a jarmuvet, es a telephelyet akkor johet a reszletek megadasa.
+
+
+Itt szeretnem ha ellenorzes keppen ismeretetne ujra a bevitt adatokat es ellenorizheto legyen, valamint olyan plusz informaciokat mondjon mint
+
+
+Szamla adatok.
+Gepjarmu adatok.
+Telephely:
+Atlagfogyasztas:
+Elszamolhato tavolsag:
+
+
+Szamla elszamolasanak a kezdete: nyilvan ez a szamla tankolasanak datuma, ettol elterni nem lehet, de tobb szamlat is fel lehet vinni egy adott honapban egy adott gepjarmuhoz. 
+Elszamolas vege: 
+
+
+Vegul jon a lenyeg a kiszamitott utvonalaknak a randomizalasa, feltetelek szerint. 
+Meg kell adni, hogy Hetfotol-Pentekig vagy Hetfotol-Szombatig vagy Hetfotol-Vasarnapig van hasznalatban az auto.
+Meg kell adni, hogy egy nap, maximalisan mennyi kilometert tehet meg. 
+Van-e manualis cim? Kulfoldi ut? A tankolas napjan a tankolasi cim keruljon elszamolasra. Tehat aznap legyen egy oda-vissza ut es minden csak azutan tortenjen! 
+Ha van megadott manualis cim: tehat peldaul egy kulfodi utazas akkor annak meg kell adni az idotartamat.
+datum -tol  .... datum-ig 
+Itt be kell irni a cimeket es a tavolsagokat, ha van tankolas ezen idokozott akkor azt is. De mondju ez a kulfodi utak ez legyen extra. :) most nem foglalkozok vele.
+
+Tehat akkor a program kiirja az elszamolando kilomter mennyiseget.
+
+PL.: az elszamolando kilometer a szamlak es a gepjarmu adatai alapjan: 9400 km (manualis ertek ): 
+A szamlak alapjan az elszamolando ido 1. szamla kezdete datum ... (manualis)
+Az elszamolas vege datum (manualisan):
+
+
+ki kell valasztani a helszineket.
+
+Pl.: ORSZAG
+
+Melyik orszag?
+Melyik megye?
+Melyik varos?
+= 
++  Telephelytol minimalis tavolsag: 2  km
++  Telephelytol maximalis tavolsag: 100 km 
++  Mennyi legyen a telephelytol a maximalis tavolsag?
+
+
+Utana a paramterek alapjan leszuri, es kivalasztja a cimeket. 
+  
+  
+  
+OLDALAK, DIZAJN
+ 
+ 
+ELSO OLDALON MEGJELENNEK AZ UGYNEVEZETT RADIO GOMBOK.
+ 
+SZAMLA ADATBEVITEL - ezt barmikor meg lehet tenni amikor megkapja az ember a szamlat, egyszeruen felviszi az adatok - feltolti az adatbazist. Akar JPG-kepet is lehessen kesobb csatolni.
+ 
+UTVONAL TERVEZES   :EZ A PROGRAM LENYEGE - ITT TORTENIK A TELEPHELY, ES A SZAMLAK KIVALASZTASA VALAMINT A FINOM PARAMETEREK BEALLITASA
+ 
+ 
+TERVEZETT UTVONALAK:
+
+Ez egyfajta naplo, ahol ki lehet valasztani az adott honapot vagy szamlakat es a hozza tartozo elszamolast. Most meg nem tudom, hogy szamlakent lehessen keresni, vagy idointervallumra. De azt hiszem lehessen szurni idore es utana ki lehet valasztani szamlakat, vagy ki lehet valasztani jarmuket es mutatja milyen szamlak es utvonalak voltak hozza.
+Ezt lehet jobb lenne java script-ben vagy valami dinamikusabb modon csinalni. 
+ 
+SZAMLA ADATBEVITEL OLDAL:
+
+Ez egy egyszeru adatbazis feltoltes. PHP feluleten. Ez passzol.
+Az utvonal tervezes PHP feluelten is passzol. Itt lehetoseg van PDF-be es CSV -be menteni. Eloszor csak CSV-be. Majd kesobb PDF-be menteni.
+
+
+
+TEHAT - SZAMLA ALAPJAN TORTENIK A GENERALAS. A SZAMLA MAGAVAL HOZ SOK MEGHATAROZO ADATOT. PELDAUL A TANKOLT LITER MENNYIESEGET. VAGY A DATUMOT ES A CIMET AHOL TANKOLAS TORTENT ES MINDENKEPP BELE KELL TERVEZNI AZ UTVONALBA AZ ADOTT NAPRA. 
+
+
+
+Projekt: Útvonaltervező számlák alapján
+
+Verzió: v1.0
+Dátum: (töltsd ki)
+Fő cél: Számlák alapján gépjárművekhez elszámolható útvonalak generálása (PHP + MySQL)
+
+1️⃣ Projekt áttekintés
+
+A projekt célja, hogy a tankolási számlákból és járműadatokból kiszámolható legyen az elszámolható kilométer és a kapcsolódó útvonalak.
+
+A folyamat lépései:
+
+Számla rögzítése
+
+Részletezés + ellenőrzés (gépjármű, telephely, átlagfogyasztás)
+
+Útvonal generálás (szabályok + paraméterek)
+
+Elszámolás mentése CSV-be vagy PDF-be
+
+Napló / visszakeresés
+
+2️⃣ Adatbázis
+
+Rendszer: MySQL
+Fő táblák:
+
+szamla
+
+gepjarmu
+
+cimlista
+
+kiszamitott_utvonalak
+
+generalt_utvonalak
+
+sofor
+
+Fő kapcsolatok:
+
+szamla.benzinkut_id → cimlista.id (funkció = "benzinkut")
+
+szamla.gepjarmu_id → gepjarmu.id
+
+kiszamitott_utvonalak.telephely_id → cimlista.id
+
+kiszamitott_utvonalak.celallomas_id → cimlista.id
+
+kiszamitott_utvonalak.szamla_id → szamla.id
+
+(Illeszd be a DBML vagy SQL verziót ide.)
+
+3️⃣ Fejlesztési fázisok (lebontva kis lépésekre)
+Fázis 1 – Alap adatbázis és kapcsolatok
+
+
+# route_generator
+Tankolasi szamlak alapjan a tankolt mennyiseg elszamolasa elore kalkulalt utvonalakkal. Veletlenszeru elrendezes megadott feltetelek alapjan. PHP es MYSQL alapon mukdik. Az openroute service es az overpass turbo segitsegevel lesznek feltoltve az adatbazisok. 
+
+
+# 1. Adatbazis tervezese
+	+szukseges tablak meghataraozasa
+	+tablak szukseges oszlopainak megnevezese es deklaralasa
+	+SQL nyelven megirni es validalni
+
+
+# 2. Adatbazis letrehozasa
+	+ adatbazis letrehozasa PHP script segitsegevel
+	
+# 3. ADATBAZIS TABLAK FELTOLTESE
+ 	+ elokeszuletek!
+ 		-json adatbazisok exportalasal, kulonbozo teruletekrol lesz kivalasztva, tehat tobb json fajlbol lesz feltoltve az adatbazis,
+ 		de fontos, hogy ket azonos gps koordinataju pont nem szerepelhet az adatbazisba. Ezert kell json-bol szerintem CSV fajl, plusz hash el
+ 		valamint egy varosba 1 utca csak 1 hazszammal legyen megadva. A hazszam veletlenszeruen legyen kivalasztva. Tehat Budapest XVIII. kerulet, Juharos sor 30. Es Budapest XVIII. kerulet 			Nagybecskerek utca 32. es Budapest Nagybecskerek utca 30. kozott csak az egyikre van szukseg a masikra nincs.
+ 	+a CSV 		
+ 		
+
+	+ cim adatbazis feltoltese json fajlbol.
+
+
+# 3.1 CIMLISTA TABLA FELTOLTESE
+#       Telephelyek rogzitese kesobbi kivalasztas lehetosege
+#       Benzinkutak megjelolese es helyes elnevezese
+#
+# 4. SZAMLA TABLA FELTOLTESE, ADATOK ROGZITESE 
+# 4.1 PHP OLDAL AMIN KERESZTUL A SZAMLA ADATAIT FEL LEHET TOLTENI AZ ADATBAZISBA. szamla.php
+# 4.2 SZAMLA TABLA BEVITELI MEZOK AZ ADATBAZIS LETREHOZA MENPONTBAN RESZLETEZVE
+# 4.3 KELL EGY MINIMALIS DIZAJN AZ OLDALNAK, MIVEL EGYSEGES LESZ IGY KULON CCS FAJLBA LEGYEN MENTVE ES ONNAN IMPORTVALVA
+#       
+#
+# 5. UTVONALAK GENERALASA PHP OLDAL
+# 5.1 FELTETELEK RESZELETEZESE
+# 5.1.1 ELSZAMOLAS KEZDETE - ELSZAMOLAS VEGE 
+#       SZAMLA VAGY SZAMLAK KIVALASZTASA
+#       NAPI MAXIMALIS UTAZASI IDO: 
+#       NAPI MAXIMALIS UTAZASI TAVOLSAG:
+#		ORSZAG KIVALASZTASA:
+#		MEGYE KIVALASZTASA
+#		VAROS KIVALASZTASA:
+#       TELEPHELYTOL MAXIMALIS TAVOLSAG: 
+#		
+#   EXTRA FUNKCIOK
+#   MUNKAIDO: H-P VAGY H-SZ VAGY H-V
+#   UNNEPNAPOK BELESZAMITASA: IGEN/NEM
+#   TANKOLASOK IDOPONTJA ALAPJAN BELETERVEZES AZ UTVONALBA
+#	
+#   AKKOR EZEKET AMIKOR ROGZITJUK, MONDJUK VALTOZOKBA, IDEIGLENESEN AKKOR A KOVETKEZO OLDALON OSSZESITI AZ 
+#	INFORMACIOKAT ES LEHETOSEGET NYUJT ARRA, HOGY GENERALJUK AZ UTVONALAKAT.
+#	
+# 	MIUTAN A MEGTORTENIK A GENERALAS, TEHAT A KIKALKULALT UTVONALAK TABLAZATBOL A MEGFELELO PARAMTEREK ELOSZURESE ALAPJAN, MEGJELENITI AZ EREDMENYT, AMIT VEGIG LEHET BONGESZNI ES LEHET ELLENORIZNI,
+#   HA A HUMAN ELLENORZES MEGTORTENT, AKKOR EGY ROGZIT GOMBBAL FEL LEHET TOLTENI AZ ADATBAZISBA. MIUTAN FELTOLTOTTESRE KERULT AZ ADATBAZISBA EZ A LISTA, UGY LEHET MAJD EXPORTALNI CSV-BE VAGY A JOVOBEN MAJD PDF-BE.
+#
+#
+#
+# 6. KERESES AZ ADATBAZISBAN
+#	EZ AZERT FONTOS, MERT SZAMLAKHOZ VAGY GEPJARMUVEK UTVONALAT KESOBB IS LE LEHESSEN KERDEZNI. TEHAT HA KIVANCSI VAGYOK EGY SZAMLRA, AKKOR IRJA KI NEKEM AZ UTVONALAKAT
+#	HA ERDEKEL AZ AUTO, HOGY MILYEN UTVONALAKAT JART BE AKKOR JELENITSE MEG. DE EZ MAJD A JOVO, EZ NEM IS PHP-BE HANEM SZERINTEM MAS PROGRAMOZASI NYELVBEN LESZ MEGIRVA.
+#	TALAN JAVA A LEGEGYERUBB. EZ A HATOS PONT EGYELORE NEM A PROJEKT RESZE CSAK KIEGESZITO RESZ, MINT VEGCEL. A LENYEGES RESZ A GENERALAS.
+
+
+https://overpass-turbo.eu/
+
+[out:json][timeout:50];
+area(3601550598)->.searchArea;
+
+(
+  node["addr:housenumber"](area.searchArea);
+  way["addr:housenumber"](area.searchArea);
+  relation["addr:housenumber"](area.searchArea);
+
+  node["addr:street"](area.searchArea);
+  way["addr:street"](area.searchArea);
+  relation["addr:street"](area.searchArea);
+);
+out center tags;
+
+https://account.heigit.org/manage/key
+
+
+https://runsql.com/r
+
+
+
+ 
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
