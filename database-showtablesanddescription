@@ -1,0 +1,93 @@
+mysql> USE cimtar;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> SHOW DATABASE;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'DATABASE' at line 1
+mysql> SHOW TABLES;
++------------------+
+| Tables_in_cimtar |
++------------------+
+| cimtar           |
+| gepjarmu         |
+| szamla           |
+| tavolsagok       |
+| telephelyek      |
++------------------+
+5 rows in set (0.01 sec)
+
+mysql> DESCRIBE cimtar,gepjarmu,szamla,tavolsagok,telephelyek;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ',gepjarmu,szamla,tavolsagok,telephelyek' at line 1
+mysql> DESCRIBE cimtar;
++-------------+--------------+------+-----+---------+-------+
+| Field       | Type         | Null | Key | Default | Extra |
++-------------+--------------+------+-----+---------+-------+
+| gps_hash    | char(64)     | NO   | PRI | NULL    |       |
+| osm_id      | bigint       | YES  | MUL | NULL    |       |
+| osm_type    | varchar(10)  | YES  |     | NULL    |       |
+| country     | varchar(5)   | YES  |     | NULL    |       |
+| city        | varchar(255) | YES  |     | NULL    |       |
+| postcode    | varchar(20)  | YES  |     | NULL    |       |
+| street      | varchar(255) | YES  |     | NULL    |       |
+| housenumber | varchar(50)  | YES  |     | NULL    |       |
+| suburb      | varchar(255) | YES  |     | NULL    |       |
+| name        | varchar(255) | YES  |     | NULL    |       |
+| lat         | double       | NO   |     | NULL    |       |
+| lon         | double       | NO   |     | NULL    |       |
++-------------+--------------+------+-----+---------+-------+
+12 rows in set (0.02 sec)
+
+mysql> DESCRIBE gepjarmu;
++-----------------+--------------------------------------------+------+-----+---------+----------------+
+| Field           | Type                                       | Null | Key | Default | Extra          |
++-----------------+--------------------------------------------+------+-----+---------+----------------+
+| id              | int                                        | NO   | PRI | NULL    | auto_increment |
+| Rendszam        | varchar(20)                                | NO   | UNI | NULL    |                |
+| Marka           | varchar(50)                                | NO   |     | NULL    |                |
+| Tipus           | varchar(50)                                | NO   |     | NULL    |                |
+| Kivitel         | varchar(50)                                | YES  |     | NULL    |                |
+| Tomeg           | int                                        | YES  |     | NULL    |                |
+| Tank_meret      | int                                        | YES  |     | NULL    |                |
+| Uzemanyag_tipus | enum('Benzin','Dízel','LPG','Elektromos')  | NO   |     | NULL    |                |
++-----------------+--------------------------------------------+------+-----+---------+----------------+
+8 rows in set (0.00 sec)
+
+mysql> DESCRIBE telephelyek;
++----------+--------------+------+-----+---------+-------+
+| Field    | Type         | Null | Key | Default | Extra |
++----------+--------------+------+-----+---------+-------+
+| depot_id | int          | NO   | PRI | NULL    |       |
+| name     | varchar(255) | NO   |     | NULL    |       |
+| lat      | double       | NO   |     | NULL    |       |
+| lon      | double       | NO   |     | NULL    |       |
++----------+--------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> DESCRIBE tavolsagok;
++--------------+-----------+------+-----+-------------------+-----------------------------------------------+
+| Field        | Type      | Null | Key | Default           | Extra                                         |
++--------------+-----------+------+-----+-------------------+-----------------------------------------------+
+| osm_id       | bigint    | NO   | PRI | NULL              |                                               |
+| depot_id     | int       | NO   | PRI | NULL              |                                               |
+| distance_km  | double    | YES  |     | NULL              |                                               |
+| duration_min | double    | YES  |     | NULL              |                                               |
+| updated_at   | timestamp | YES  |     | CURRENT_TIMESTAMP | DEFAULT_GENERATED on update CURRENT_TIMESTAMP |
++--------------+-----------+------+-----+-------------------+-----------------------------------------------+
+5 rows in set (0.00 sec)
+
+mysql> DESCRIBE szamla;
++---------------------------+--------------------------------------------+------+-----+---------+----------------+
+| Field                     | Type                                       | Null | Key | Default | Extra          |
++---------------------------+--------------------------------------------+------+-----+---------+----------------+
+| id                        | int                                        | NO   | PRI | NULL    | auto_increment |
+| Datum                     | date                                       | NO   |     | NULL    |                |
+| Szamla_szam               | int                                        | NO   |     | NULL    |                |
+| Tankolt_mennyiseg         | int                                        | NO   |     | NULL    |                |
+| Osszeg                    | int                                        | NO   |     | NULL    |                |
+| Benzinkut_ID              | bigint                                     | NO   | MUL | NULL    |                |
+| Gepjarmu_ID               | int                                        | NO   | MUL | NULL    |                |
+| Kilometer_szamlalo_allasa | int                                        | NO   |     | NULL    |                |
+| Uzemanyag_tipus           | enum('Benzin','Dízel','LPG','Elektromos')  | NO   |     | NULL    |                |
++---------------------------+--------------------------------------------+------+-----+---------+----------------+
+9 rows in set (0.00 sec)
