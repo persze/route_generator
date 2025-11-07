@@ -1,0 +1,59 @@
+0. Login felulet, egyszeru jelszo.
+1. legyen egy fo oldal, amirol a tobbi oldal elerheto
+2. legyen szep letisztult sallang mentes, de esztetikus professzionalis, kellemes legyen hasznalni.
+
+
+Vegyuk kulon a Frontend es a Backend reszet. Muszaj strukturalni! 
+
+Celkent szeretnem azt kituzni, hogy mar adatbevitelkor figyelmeztessen a rendszer, ha rossz formatumot, irunk ki.
+Alapesetben mindent lenyilo valasztoba csinalunk. Viszont itt jo lenne arra figyelni, hogy csak az jelenjen meg, ami egyaltalan kivalaszthato.
+Ertem ezalatt, hogy azonnali visszajelzeses webfeluletet szeretnek, JS scriptekkel. Pici erthetokkel. 
+
+Reszletes adatbevitel. Gepjarmuveket altalaban nem kell hozzaadni, maximum modositani - de nem nez ki rosszul.
+
+
+Maga a fo funkcioja az oldalnak az utvonalak veletlenszeru generalasa.
+Aztan bizonyos felteteleknek megfeleloen a generalasa.
+Mivel leptekben szeretnek haladni, ezert az elso oldal teljesen veletlenszeruen lesz generalva semmilyen feltetelt nem lehet kivalasztani.
+Szigoruan csak a szamlahoz igazodunk! 
+
+Ez mibol all?
+
+# szamlak kivalasztasa ( akar tobb is! ) feltetel: ugyanahoz a gepjarmuhoz tartozzon
+   # osszegzi a litert - ebbol szamolja a elszamolhato kilomtert 
+   # a generalast ugy vegzi, hogy a tankolas napjan csak a tankolasi cim lesz, vagy plusz nehany cim.
+
+# tankolas datuma
+# tankolas cime
+# tankolas liter mennyisege = ebbol kikalkulalt atlagfogyasztas alapjan a megteendo kilometer mennyiseg.
+    ## ettol elterni persze lehet, de csak mondjaval
+# elszamolas vege   // meglehet adni mondjuk a honap vege datumot, vagy a kovetkezo tankolas elotti napot.
+
+Aztan plusz lehetosegek:
+  Kedvenc uticelok kivalasztasa. Egyeni listak keszitese, majd legordulobol kivalasztas. Uj lista keszites. Ezeket el lehet meteni, pl
+top-100-CJA-165   :: es akkor abban szerepel majd 30 cim ahova szokott jarkalni.
+
+# telephelytol valo maximalis tavolsag
+
+   ## itt a szamlahoz hozzarendelt gepjarmu telephelyehez merjuk a tavolsagokat. pl maximum 40 km , akkor 1-40 km-ig 
+      lehet maximum a tavolsag.
+
+
+Ki lehet valasztani Varosokat vagy keruleteket, ekkor csak azon beluli cimeket fog hasznalni.
+
+
+# lehetoseg lesz CSV be menteni
+# lehetoseg lesz PDF-t kesziteni
+
+Erdemes lenne valami Advenced ful, amiben pl megadhatok soforok nevet, hogy veletlenszeruen irodjanak be a napokra.
+Tehat nem kotelezo egy embernek vezetnie. 
+
+# a gepjarmuben levo kilometer szamlalonak mindig stimmelnie kell. Nem ami volt, hanem az aktualishoz kell merni, es nagyjabol
+meg kell kozeliteni, tehat a soron kovetkezo tankolaskor nem lehet alacsonyabb a kilometer szamlalo adata, mint amennyi 
+az elszamolt tavolsag. Itt megint problema lehet az atlapolodas. 
+
+
+
+
+
+
